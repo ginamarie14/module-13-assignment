@@ -1,17 +1,10 @@
-const express = require("express");
-const routes = require("./routes/api");
-const sequelize = require("./config/connection");
+const router = require('express').Router();
+const apiRoutes = require('./api');
 
-const app = express();
-const PORT = process.env.PORT || 3001;
+router.use("/api", apiRoutes);
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-
-app.use(routes);
-
-sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, () => {
-    console.log(`App listening on port ${PORT}!`);
-  });
+router.use((req, res) => {
+  res.send("test");
 });
+
+module.exports = router;
